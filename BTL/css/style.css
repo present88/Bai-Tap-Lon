@@ -1,0 +1,27 @@
+.bg-img{
+    background-size: cover;
+    height: 93vh;
+    background-image: linear-gradient(rgba(0, 0, 0,0.4),rgba(0, 0, 0,0.4)), url('../image/nen.jpg');
+    transform: translate3d(0px, 0px, 0px);
+    background-position: center center;
+}
+#navpage{
+    padding: 20px;
+    text-transform: uppercase;
+}
+#navpage.scrolled{
+    background:rgb(89, 238, 20);
+    transition:background-color 0.8s ;
+}
+.navbar-nav a{
+    margin-right: 20px;
+}
+.avatar{
+    text-align: center;
+    padding-top: 120px;
+}
+.section {
+    padding: 70px 0;
+    position: relative;
+    margin-top: 155px;
+}
