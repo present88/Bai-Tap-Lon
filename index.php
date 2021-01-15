@@ -1,9 +1,18 @@
 <!doctype html>
 <html lang="en">
 <?php
-require "connect.php";
-require "about.php";
-require "skills.php";
+if (isset($_GET['username'])) {
+    $username = $_GET['username'];
+    $username = strtolower($username);
+    require "connect.php";
+    require "home.php";
+    require "about.php";
+    require "skills.php";
+    require "education.php";
+    require "experience.php";
+} else {
+    header("location:login.php");
+}
 ?>
 
 <head>
@@ -28,6 +37,24 @@ require "skills.php";
     <script src="js/bootstrap.js"></script>
     <script src="js/all.js"></script>
     <script src="js/script.js"></script>
+    <?php
+    if(isset($home))
+    {
+        $avatar = $home['avatar'];
+        $name = $home['name'];
+        $job = $home['job'];
+        $fb = $home['fb'];
+        $tw = $home['tw'];
+        $gg = $home['gg'];
+        $insta = $home['insta'];
+    }
+    else
+    {
+        $avatar="image/default.png";
+        $name="Not Have This User";
+        $job=$fb=$tw=$gg=$insta='';
+    }
+    ?>
     <header>
         <div class="profile-page sidebar-collapse">
             <nav id="navpage" class="navbar navbar-expand-lg fixed-top navbar-transparent" color-on-scroll="400">
@@ -44,24 +71,42 @@ require "skills.php";
                             <li class="nav-item"><a class="nav-link smooth-scroll text-light" href="#education">Education</a></li>
                             <li class="nav-item"><a class="nav-link smooth-scroll text-light" href="#experience">Experience</a></li>
                             <li class="nav-item"><a class="nav-link smooth-scroll text-light" href="#contact">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link smooth-scroll text-light" href="login.php">Login</a></li>
                         </ul>
                     </div>
                 </div>
             </nav>
         </div>
     </header>
+    <?php
+    if(isset($about))
+    {
+        $intro = $about['intro'];
+        $age = $about['age'];
+        $sex = $about['sex'];
+        $email = $about['email'];
+        $phone = $about['phone'];
+        $address = $about['address'];
+        $hobby = $about['hobby'];
+        $language = $about['language'];
+    }
+    else
+    {
+        $intro=$age=$sex=$email=$phone=$address=$hobby=$language='';
+    }
+    ?>
     <div class="page-content">
         <div class="bg-img container-fluid">
             <div class="avatar mx-auto">
-                <img class="rounded-pill mb-4" src="image/img.jpg" alt="" width="180px" height="180px">
-                <h1 class="text-light">Nguyen Viet Phuong</h1>
-                <h4 class="text-light">Student,Web Developer</h4>
+                <img class="rounded-pill mb-4" src="<?php echo $avatar; ?>" alt="" width="180px" height="180px">
+                <h1 class="text-light"><?php echo $name; ?></h1>
+                <h4 class="text-light"><?php echo $job; ?></h4>
                 <div class="container mx-auto">
                     <div class="button-container mt-5" align="center">
-                        <a class=" mxh mxh-fb btn rounded-circle btn-lg ml-4 mr-4" href="#" title="Follow me on Facebook"><i class="fab fa-facebook"></i></a>
-                        <a class=" mxh mxh-tw btn rounded-circle btn-lg ml-4 mr-4" href="#" title="Follow me on Twitter"><i class="fab fa-twitter"></i></a>
-                        <a class=" mxh mxh-gg btn rounded-circle btn-lg ml-4 mr-4" href="#" title="Follow me on Google+"><i class="fab fa-google-plus"></i></a>
-                        <a class=" mxh mxh-is btn rounded-circle btn-lg ml-4 mr-4" href="#" title="Follow me on Instagram"><i class="fab fa-instagram"></i></a>
+                        <a class=" mxh mxh-fb btn rounded-circle btn-lg ml-4 mr-4" href="<?php echo $fb; ?>" title="Follow me on Facebook"><i class="fab fa-facebook"></i></a>
+                        <a class=" mxh mxh-tw btn rounded-circle btn-lg ml-4 mr-4" href="<?php echo $tw; ?>" title="Follow me on Twitter"><i class="fab fa-twitter"></i></a>
+                        <a class=" mxh mxh-gg btn rounded-circle btn-lg ml-4 mr-4" href="<?php echo $gg; ?>" title="Follow me on Google+"><i class="fab fa-google-plus"></i></a>
+                        <a class=" mxh mxh-is btn rounded-circle btn-lg ml-4 mr-4" href="<?php echo $insta; ?>" title="Follow me on Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
             </div>
@@ -131,17 +176,20 @@ require "skills.php";
                             <div class="card-body">
                                 <?php
                                 $i = 0;
-                                foreach ($proskills as $proskill) {
-                                    echo '<div class="skill my-4">
-                                            <b class="text-primary h6">' . $proskill[1] . '</b>
-                                            <div class="progress">
-                                                <div class="progress-bar ' . $color[$i % 4] . ' progress-bar-striped progress-bar-animated" role="progressbar" data-progress="' . $proskill[2] . '">
-                                                    ' . $proskill[2] . '
+                                if(isset($proskills))
+                                {
+                                    foreach ($proskills as $proskill) {
+                                        echo '<div class="skill my-4">
+                                                <b class="text-primary h6 text-uppercase">' . $proskill[1] . '</b>
+                                                <div class="progress">
+                                                    <div class="progress-bar ' . $color[$i % 4] . ' progress-bar-striped progress-bar-animated" role="progressbar" data-progress="' . $proskill[2] . '">
+                                                        ' . $proskill[2] . '
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            </div>';
-                                    $i++;
-                                }
+                                                </div>';
+                                        $i++;
+                                    }
+                                }                                
                                 ?>
                             </div>
                         </div>
@@ -151,17 +199,20 @@ require "skills.php";
                             <div class="card-body">
                                 <?php
                                 $i = 0;
-                                foreach ($perskills as $perskill) {
-                                    echo '<div class="skill my-4">
-                                            <b class="text-primary h6">' . $perskill[1] . '</b>
-                                            <div class="progress">
-                                                <div class="progress-bar ' . $color[$i % 4] . ' progress-bar-striped progress-bar-animated" role="progressbar" data-progress="' . $perskill[2] . '">
-                                                    ' . $perskill[2] . '
+                                if(isset($perskills))
+                                {
+                                    foreach ($perskills as $perskill) {
+                                        echo '<div class="skill my-4">
+                                                <b class="text-primary h6 text-uppercase">' . $perskill[1] . '</b>
+                                                <div class="progress">
+                                                    <div class="progress-bar ' . $color[$i % 4] . ' progress-bar-striped progress-bar-animated" role="progressbar" data-progress="' . $perskill[2] . '">
+                                                        ' . $perskill[2] . '
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            </div>';
-                                    $i++;
-                                }
+                                                </div>';
+                                        $i++;
+                                    }
+                                }                               
                                 ?>
                             </div>
                         </div>
@@ -178,37 +229,19 @@ require "skills.php";
                 </div>
                 <div class="card shadow-lg" data-aos="fade-up" data-aos-offset="10">
                     <div class="row mt-4">
-                        <ul class="timeline-1 col-9 mx-auto" style="text-align: justify;">
-                            <li class="mt-0">
-                                <h5 class="d-inline text-primary">New Web Design</h5>
-                                <h5 class="float-right d-inline text-primary">21-13-2020</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
-                            </li>
-                            <li>
-                                <h6 class="d-inline text-primary">New Web Design</h6>
-                                <h6 class="float-right d-inline text-primary">21-13-2020</h6>
-                                <p>Curabitur purus sem, malesuada eu luctus eget, suscipit sed turpis. Nam pellentesque felis vitae justo accumsan, sed semper nisi sollicitudin...</p>
-                            </li>
-                            <li>
-                                <h6 class="d-inline text-primary">New Web Design</h6>
-                                <h6 class="float-right d-inline text-primary">21-13-2020</h6>
-                                <p></p>
-                            </li>
-                            <li>
-                                <h6 class="d-inline text-primary">New Web Design</h6>
-                                <h6 class="float-right d-inline text-primary">21-13-2020</h6>
-                                <p>Fusce ullamcorper ligula sit amet quam accumsan aliquet. Sed nulla odio, tincidunt vitae nunc vitae, mollis pharetra velit. Sed nec tempor nibh...</p>
-                            </li>
-                            <li class="">
-                                <h6 class="d-inline text-primary">New Web Design</h6>
-                                <h6 class="float-right d-inline text-primary">21-13-2020</h6>
-                                <p>Fusce ullamcorper ligula sit amet quam accumsan aliquet. Sed nulla odio, tincidunt vitae nunc vitae, mollis pharetra velit. Sed nec tempor nibh...</p>
-                            </li>
-                            <li class="">
-                                <h6 class="d-inline text-primary">New Web Design</h6>
-                                <h6 class="float-right d-inline text-primary">21-13-2020</h6>
-                                <p>Fusce ullamcorper ligula sit amet quam accumsan aliquet. Sed nulla odio, tincidunt vitae nunc vitae, mollis pharetra velit. Sed nec tempor nibh...</p>
-                            </li>
+                        <ul class="timeline-1 col-9 mx-auto pb-0" style="text-align: justify;">
+                            <?php
+                            if(isset($educations))
+                            {
+                                foreach ($educations as $education) {
+                                    echo '<li>
+                                        <h5 class="d-inline text-primary">' . $education[1] . '</h5>
+                                        <h5 class="float-right d-inline text-primary">' . $education[2] . '</h5>
+                                        <p>' . $education[3] . '</p>
+                                    </li>';
+                                }
+                            }                           
+                            ?>
                         </ul>
                     </div>
                 </div>
@@ -224,21 +257,17 @@ require "skills.php";
                 <div class="card shadow-lg" data-aos="fade-up" data-aos-offset="10">
                     <div class="row mt-4">
                         <ul class="timeline-2 col-9 mx-auto" style="text-align: justify;">
-                            <li class="mt-0">
-                                <h5 class="d-inline">New Web Design</h5>
-                                <h5 class="float-right d-inline">21-13-2020</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
-                            </li>
-                            <li class="mt-0">
-                                <h5 class="d-inline">New Web Design</h5>
-                                <h5 class="float-right d-inline">21-13-2020</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
-                            </li>
-                            <li class="mt-0">
-                                <h5 class="d-inline">New Web Design</h5>
-                                <h5 class="float-right d-inline">21-13-2020</h5>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque diam non nisi semper, et elementum lorem ornare. Maecenas placerat facilisis mollis. Duis sagittis ligula in sodales vehicula....</p>
-                            </li>
+                            <?php
+                            if (isset($experiences)) {
+                                foreach ($experiences as $experience) {
+                                    echo '<li>
+                                        <h5 class="d-inline text-primary">' . $experience[1] . '</h5>
+                                        <h5 class="float-right d-inline text-primary">' . $experience[2] . '</h5>
+                                        <p>' . $experience[3] . '</p>
+                                    </li>';
+                                }
+                            }
+                            ?>
                         </ul>
                     </div>
                 </div>

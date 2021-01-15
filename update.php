@@ -1,0 +1,25 @@
+<?php
+session_start();
+if(isset($_SESSION['username']))
+{
+    $username=$_SESSION['username'];
+    if(isset($_GET['skill']))
+    {
+        $table=$_GET['skill'];
+        $id=$_GET['id'];
+    }
+    else if(isset($_GET['exp']))
+    {
+        $table=$_GET['skill'];
+        $id=$_GET['id'];
+    }
+    else
+    {
+        header("location:login.php");
+    }
+}
+else
+{
+    header("location:login.php");
+}
+?>
