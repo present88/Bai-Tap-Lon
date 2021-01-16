@@ -8,6 +8,7 @@ if (isset($_SESSION['username'])) {
     require "skills.php";
     require "education.php";
     require "experience.php";
+    $avatar = $home['avatar'];
 } else {
     header("location:login.php");
 }
@@ -36,21 +37,24 @@ if (isset($_SESSION['username'])) {
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="js/all.js"></script>
     <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-        <a class="navbar-brand" href="#">My CV</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="navbar-brand" href="<?php echo $username; ?>">My CV</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="#">Admin <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li><a class="btn btn-success rounded-pill" href="logout.php" role="button">Log Out</a></li>
+        </ul>
         </div>
     </nav>
     <div class="container mt-5" align="center">
         <div id="avatar" class="div-avt">
-            <img class="rounded-pill img-avt mx-auto" src="image/present.JPG" style="width:200px;height:200px;" onClick="triggerClick()" id="profileDisplay">
+            <img class="rounded-pill img-avt mx-auto" src="<?php echo $home['avatar']; ?>" style="width:200px;height:200px;" onClick="triggerClick()" id="profileDisplay">
         </div>
         <form action="updateavatar.php" method="post" enctype="multipart/form-data">
             <input type="file" name="avt" value="" onChange="displayImage(this)" id="profileImage" style="display: none;">
@@ -63,32 +67,32 @@ if (isset($_SESSION['username'])) {
     </div>
     <div class="container mt-5">
         <div class="h3 text-center mb-4 title">Home</div>
-        <form action="" method="post">
+        <form action="processupdate.php?table=home" method="post">
             <table class="table table-hover table-bordered">
                 <tbody>
                     <tr>
                         <th scope="row">Name</th>
-                        <td><input type="text" class="form-control" name="fname" id="" value="<?php echo $home[2]; ?>"></td>
+                        <td><input type="text" class="form-control" name="name" id="" value="<?php echo $home[2]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Job</th>
-                        <td><input type="text" class="form-control" name="fname" id="" value="<?php echo $home[3]; ?>"></td>
+                        <td><input type="text" class="form-control" name="job" id="" value="<?php echo $home[3]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Link Facebook</th>
-                        <td><input type="text" class="form-control" name="lname" id="" value="<?php echo $home[4]; ?>"></td>
+                        <td><input type="text" class="form-control" name="fb" id="" value="<?php echo $home[4]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Link Twitter</th>
-                        <td><input type="text" class="form-control" name="class" id="" value="<?php echo $home[5]; ?>"></td>
+                        <td><input type="text" class="form-control" name="tw" id="" value="<?php echo $home[5]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Link Google+</th>
-                        <td><input type="text" class="form-control" name="addr1" id="" value="<?php echo $home[6]; ?>"></td>
+                        <td><input type="text" class="form-control" name="gg" id="" value="<?php echo $home[6]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Link Instagram</th>
-                        <td><input type="text" class="form-control" name="addr2" id="" value="<?php echo $home[7]; ?>"></td>
+                        <td><input type="text" class="form-control" name="insta" id="" value="<?php echo $home[7]; ?>"></td>
                     </tr>
                 </tbody>
             </table>
@@ -99,46 +103,47 @@ if (isset($_SESSION['username'])) {
     </div>
     <div class="container mt-5">
         <div class="h3 text-center mb-4 title">About</div>
-        <form action="" method="post">
+        <form action="processupdate.php?table=about" method="post">
             <table class="table table-hover table-bordered">
                 <tbody>
                     <tr>
                         <th scope="row">Introduce Yourself</th>
-                        <td><textarea type="text" class="form-control" name="fname" id="" value="   "><?php echo $about[1]; ?></textarea></td>
+                        <td><textarea name="intro" type="text" class="form-control"><?php echo $about[1]; ?></textarea></td>
                     </tr>
                     <tr>
                         <th scope="row">Age</th>
-                        <td><input type="text" class="form-control" name="fname" id="" value="<?php echo $about[2]; ?>"></td>
+                        <td><input name="age" type="text" class="form-control"  value="<?php echo $about[2]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Sex</th>
-                        <td><input type="text" class="form-control" name="lname" id="" value="<?php echo $about[3]; ?>"></td>
+                        <td><input name="sex" type="text" class="form-control"  value="<?php echo $about[3]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Email</th>
-                        <td><input type="text" class="form-control" name="class" id="" value="<?php echo $about[4]; ?>"></td>
+                        <td><input type="text" name="email" class="form-control" value="<?php echo $about[4]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Phone</th>
-                        <td><input type="text" class="form-control" name="addr1" id="" value="<?php echo $about[5]; ?>"></td>
+                        <td><input type="text" name="phone" class="form-control" value="<?php echo $about[5]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Address</th>
-                        <td><input type="text" class="form-control" name="addr2" id="" value="<?php echo $about[6]; ?>"></td>
+                        <td><input type="text" name="address" class="form-control" value="<?php echo $about[6]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Hobby</th>
-                        <td><input type="text" class="form-control" name="addr2" id="" value="<?php echo $about[7]; ?>"></td>
+                        <td><input type="text" name="hobby" class="form-control" value="<?php echo $about[7]; ?>"></td>
                     </tr>
                     <tr>
                         <th scope="row">Language</th>
-                        <td><input type="text" class="form-control" name="addr2" id="" value="<?php echo $about[8]; ?>"></td>
+                        <td><input type="text" name="language" class="form-control" value="<?php echo $about[8]; ?>"></td>
                     </tr>
                 </tbody>
             </table>
             <div class="container" align="right">
                 <button type="submit" class="btn btn-primary mx-auto mr-5">Update</button>
             </div>
+            
         </form>
     </div>
     <div class="container mt-5">
@@ -146,8 +151,8 @@ if (isset($_SESSION['username'])) {
         <table class="table table-bordered col-11 mx-auto text-center">
             <thead class="bg-dark text-white">
                 <tr class="border-dark">
-                    <th text-center">Status</th>
-                    <th text-center">Skill Name</th>
+                    <th>Status</th>
+                    <th>Skill Name</th>
                     <th >Percent</th>                  
                     <th style="width: 23%;" class="text-center">Edit &emsp; Delete</th>
                 </tr>
@@ -163,8 +168,8 @@ if (isset($_SESSION['username'])) {
                     <td class="border-dark"><?php echo $proskill[1]; ?> </td>
                     <td class="border-dark"><?php echo $proskill[2].'%'; ?></td>
                     <td class="border-dark">
-                    <a href="update.php?skill=perskills&id=<?php echo $perskill[3]; ?>" role="button"><i class="fas fa-pen mr-3"></i></a>
-                    <a onclick="return confirm('Do you want to delete this skill?')" href="processdelete.php?user=" role="button"><i class="fas fa-trash-alt ml-3"></i></a>
+                    <a href="update.php?skill=proskills&id=<?php echo $proskill[3]; ?>" role="button"><i class="fas fa-pen mr-3"></i></a>
+                    <a onclick="return confirm('Do you want to delete this?')" href="processdelete.php?table=proskills&id=<?php echo $proskill[3]; ?>" role="button"><i class="fas fa-trash-alt ml-3"></i></a>
                     </td>
                     </tr>
                 <?php
@@ -172,10 +177,12 @@ if (isset($_SESSION['username'])) {
                 }
                 ?>
                 <tr>
+                <form action="processadd.php?table=proskills" method="post">
                 <td class="border-dark" scope="row">Add new profesional skill</td>
-                <td  class="border-dark"><input type="text" class="form-control" name="class" id="" placeholder="Skill name"></td>
-                <td  class="border-dark"><input type="number" class="form-control" name="class" id="" placeholder="Skill percent"></td>
+                <td  class="border-dark"><input type="text" class="form-control" name="skillname" id="" placeholder="Skill name"></td>
+                <td  class="border-dark"><input type="number" min="0" max="100" class="form-control" name="percent" id="" placeholder="Skill percent"></td>
                 <td  class="border-dark"><button type="submit" class="btn btn-primary mx-auto">Add</button></td>
+                </form>
                 </tr>
             <tbody>
         </table>
@@ -185,8 +192,8 @@ if (isset($_SESSION['username'])) {
         <table class="table table-bordered col-11 mx-auto text-center">
             <thead class="bg-dark text-white">
                 <tr class="border-dark">
-                    <th text-center">Status</th>
-                    <th text-center">Skill Name</th>
+                    <th>Status</th>
+                    <th>Skill Name</th>
                     <th >Percent</th>                  
                     <th style="width: 23%;" class="text-center">Edit &emsp; Delete</th>
                 </tr>
@@ -202,7 +209,7 @@ if (isset($_SESSION['username'])) {
                     <td class="border-dark"><?php echo $perskill[2].'%'; ?></td>
                     <td class="border-dark">
                     <a href="update.php?skill=perskills&id=<?php echo $perskill[3]; ?>" role="button"><i class="fas fa-pen mr-3"></i></a>
-                    <a onclick="return confirm('Do you want to delete this skill?')" href="processdelete.php?user=" role="button"><i class="fas fa-trash-alt ml-3"></i></a>
+                    <a onclick="return confirm('Do you want to delete this?')" href="processdelete.php?table=perskills&id=<?php echo $perskill[3]; ?>" role="button"><i class="fas fa-trash-alt ml-3"></i></a>
                     </td>
                     </tr>
                 <?php
@@ -211,10 +218,100 @@ if (isset($_SESSION['username'])) {
                 ?>
                 <input type="hidden" name="skill" value="perskills">
                 <tr>
+                <form action="processadd.php?table=perskills" method="post">
                 <td class="border-dark" scope="row">Add new personal skill</td>
-                <td  class="border-dark"><input type="text" class="form-control" name="class" id="" placeholder="Skill name"></td>
-                <td  class="border-dark"><input type="number" class="form-control" name="class" id="" placeholder="Skill percent"></td>
+                <td  class="border-dark"><input type="text" class="form-control" name="skillname" id="" placeholder="Skill name"></td>
+                <td  class="border-dark"><input type="number" min="0" max="100" class="form-control" name="percent" id="" placeholder="Skill percent"></td>
                 <td  class="border-dark"><button type="submit" class="btn btn-primary mx-auto">Add</button></td>
+                </form>
+                </tr>
+            <tbody>
+        </table>
+    </div>
+    <div class="container mt-5">
+        <div class="h3 text-center mb-4 title">Educations</div>
+        <table class="table table-bordered col-11 mx-auto text-center">
+            <thead class="bg-dark text-white">
+                <tr class="border-dark">
+                    <th>Status</th>
+                    <th>School Name</th>
+                    <th >Time</th>   
+                    <th >Description</th>               
+                    <th style="width: 23%;" class="text-center">Edit &emsp; Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $i=1;
+                foreach ($educations as $education) {
+                    ?>
+                    <tr>
+                    <td class="border-dark" scope="row"><?php echo $i; ?></td>
+                    <td class="border-dark"><?php echo $education[1]; ?> </td>
+                    <td class="border-dark"><?php echo $education[2]; ?></td>
+                    <td class="border-dark"><?php echo $education[3]; ?></td>
+                    <td class="border-dark">
+                    <a href="update.php?exp=education&id=<?php echo $education[4]; ?>" role="button"><i class="fas fa-pen mr-3"></i></a>
+                    <a onclick="return confirm('Do you want to delete this?')" href="processdelete.php?table=education&id=<?php echo $education[4]; ?>" role="button"><i class="fas fa-trash-alt ml-3"></i></a>
+                    </td>
+                    </tr>
+                <?php
+                    $i++;
+                }
+                ?>
+                <input type="hidden" name="skill" value="perskills">
+                <tr>
+                <form action="processadd.php?table=education" method="post">
+                <td class="border-dark" scope="row">Add new education</td>
+                <td  class="border-dark"><input type="text" class="form-control" name="name" id="" placeholder="School Name"></td>
+                <td  class="border-dark"><input type="text" class="form-control" name="time" id="" placeholder="Time"></td>
+                <td  class="border-dark"><textarea type="text" class="form-control" name="mess" id="" placeholder="Description"></textarea></td>
+                <td  class="border-dark"><button type="submit" class="btn btn-primary mx-auto">Add</button></td>
+                </form>
+                </tr>
+            <tbody>
+        </table>
+    </div>
+    <div class="container mt-5">
+        <div class="h3 text-center mb-4 title">Experiences</div>
+        <table class="table table-bordered col-11 mx-auto text-center">
+            <thead class="bg-dark text-white">
+                <tr class="border-dark">
+                    <th>Status</th>
+                    <th>Job Name</th>
+                    <th >Time</th>   
+                    <th >Description</th>               
+                    <th style="width: 23%;" class="text-center">Edit &emsp; Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $i=1;
+                foreach ($experiences as $experience) {
+                    ?>
+                    <tr>
+                    <td class="border-dark" scope="row"><?php echo $i; ?></td>
+                    <td class="border-dark"><?php echo $experience[1]; ?> </td>
+                    <td class="border-dark"><?php echo $experience[2]; ?></td>
+                    <td class="border-dark"><?php echo $experience[3]; ?></td>
+                    <td class="border-dark">
+                    <a href="update.php?exp=experience&id=<?php echo $experience[4]; ?>" role="button"><i class="fas fa-pen mr-3"></i></a>
+                    <a onclick="return confirm('Do you want to delete this?')" href="processdelete.php?table=experience&id=<?php echo $experience[4]; ?>" role="button"><i class="fas fa-trash-alt ml-3"></i></a>
+                    </td>
+                    </tr>
+                <?php
+                    $i++;
+                }
+                ?>
+                <input type="hidden" name="skill" value="perskills">
+                <tr>
+                <form action="processadd.php?table=experience" method="post">
+                <td class="border-dark" scope="row">Add new experience</td>
+                <td  class="border-dark"><input type="text" class="form-control" name="name" id="" placeholder="Job Name"></td>
+                <td  class="border-dark"><input type="text" class="form-control" name="time" id="" placeholder="Time"></td>
+                <td  class="border-dark"><textarea type="text" class="form-control" name="mess" id="" placeholder="Description"></textarea></td>
+                <td  class="border-dark"><button type="submit" class="btn btn-primary mx-auto">Add</button></td>
+                </form>
                 </tr>
             <tbody>
         </table>
