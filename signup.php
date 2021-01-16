@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Login Form</title>
+    <title>Signup Form</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -42,37 +42,34 @@
 </head>
 <?php
 session_start();
-$error = "";
+$error=array();
+$error['pass'] = "";
+$error['user'] = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    include('connect.php');
-    $sql = "select * from user where username='$username' and password ='$password'";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result) == 1) {
-        $_SESSION['username'] = $username;
-        header("location:admin.php");
-    } else
-        $error = "Username or password error";
+    include('processsignup.php');
 }
 ?>
 
 <body>
     <div class="login-form">
-        <form action="login.php" method="post">
-            <h2 class="text-center">Log in</h2>
+        <form action="signup.php" method="post">
+            <h2 class="text-center">Sign Up</h2>
             <div class="form-group">
                 <input name="username" type="text" class="form-control" placeholder="Username" required="required">
             </div>
             <div class="form-group">
-                <input name="password" type="password" class="form-control" placeholder="Password" required="required">
+                <input name="password1" type="password" class="form-control" placeholder="Password" required="required">
             </div>
             <div class="form-group">
-                <label class="text-danger" for="submit"><?php echo $error; ?></label>
-                <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                <input name="password2" type="password" class="form-control" placeholder="Password" required="required">
+                <label class="text-danger"><?php echo $error['pass']; ?></label>
+            </div>
+            <div class="form-group">
+                <label class="text-danger" for="submit"><?php echo $error['user'];?></label>
+                <button type="submit" class="btn btn-primary btn-block">Sign Up</button>
             </div>
         </form>
-        <p class="text-center"><a href="signup.php">Create an Account</a></p>
+        <p class="text-center">Have an account <a href="login.php">Login</a></p>
     </div>
 </body>
 

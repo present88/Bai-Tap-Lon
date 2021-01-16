@@ -11,7 +11,6 @@ body {
     background-position: center center;
 }
 #navpage{
-    width: 100vw;
     padding: 20px;
     text-transform: uppercase;
 }
@@ -31,13 +30,16 @@ body {
     padding: 70px 0;
 }
 .mxh{
-    width: 55px;
-    height: 55px;
+    width: 60px;
+    height: 60px;
     padding-top: 12px;
     background-color: white;
 }
 .mxh:hover{
     transition: color 0.3s;
+}
+.mxh-fb, .mxh-tw, .mxh-gg, .mxh-is{
+    color: gray;
 }
 .mxh-fb:hover{
     color: #3b5998;
@@ -107,10 +109,37 @@ ul.timeline-2 > li:before {
 ul.timeline-2 > li > h5 {
     color:red;
 }
-.fabout{
+.bg-about{
+    background-image: linear-gradient(to right,rgb(129, 243, 76) ,rgb(116, 234, 238));
+}
+.bg-education{
+    background-image: linear-gradient(to right,rgb(201, 119, 226) ,rgb(183, 196, 134));
+}
+.bg-experience{
+    background-image: linear-gradient(to right,rgb(99, 192, 119) ,rgb(59, 237, 243));
+}
+.bg-contact{
     background-image: linear-gradient(to right,rgb(230, 66, 66) ,rgb(241, 131, 227));
 }
-.formct{
-    background-image: linear-gradient(to right,rgb(230, 66, 66) ,rgb(241, 131, 227));
+.active{
+    background-color: rgb(39, 220, 233);
+}
+.nav-link{
+    border-radius: 6px;
+    text-align: center;
+    color: white;
+}
+.nav-link:hover{
+    background-color: #83d8e4;
+    color: rgb(214, 19, 198);
+    transition: background-color 0.3s, color 0.3s
 }
 
+footer{
+    background-color: #333;
+    padding: 40px;
+    font-size: 80%;
+}
+footer div div{
+    color: #888;
+}
