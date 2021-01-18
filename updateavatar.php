@@ -12,10 +12,10 @@ if(isset($_SESSION['username']))
         || ($_FILES["avt"]["type"] == "image/pjpeg"))) {
         move_uploaded_file($_FILES["avt"]["tmp_name"],$avatar);
     }
-    include('connect.php');
+    include('model/connect.php');
     $sql="update home set avatar='$avatar' where username='$username'";
     mysqli_query($conn,$sql);
-    header("location:admin.php");
+    header("location:profile.php");
 }
 else
 {

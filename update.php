@@ -1,8 +1,9 @@
 <link rel="stylesheet" href="css/bootstrap.css">
 <script src="js/ajax-3.3.1.min.js"></script>
+<title>Update</title>
 <?php
 session_start();
-include('connect.php');
+include('model/connect.php');
 if(isset($_SESSION['username']))
 {
     $username=$_SESSION['username'];
@@ -31,7 +32,7 @@ if(isset($_SESSION['username']))
                     </tbody>
                 </table>
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a name="" id="" class="btn btn-secondary" href="admin.php" role="button">Cancel</a>
+                <a name="" id="" class="btn btn-secondary" href="profile.php" role="button">Cancel</a>
             </form>
         </div>
     </div>';
@@ -65,7 +66,7 @@ if(isset($_SESSION['username']))
                     </tbody>
                 </table>
                 <button type="submit" class="btn btn-primary">Update</button>
-                <a name="" id="" class="btn btn-secondary" href="admin.php" role="button">Cancel</a>
+                <a name="" id="" class="btn btn-secondary" href="profile.php" role="button">Cancel</a>
             </form>
         </div>
     </div>';

@@ -112,15 +112,12 @@ ul.timeline-2 > li > h5 {
 .bg-about{
     background-image: linear-gradient(to right,rgb(129, 243, 76) ,rgb(116, 234, 238));
 }
-/* .bg-skills{
-    background-image: linear-gradient(to right,rgb(226, 185, 157) ,rgb(226, 185, 157));
-}
 .bg-education{
     background-image: linear-gradient(to right,rgb(201, 119, 226) ,rgb(183, 196, 134));
-} */
-/* .bg-experience{
+}
+.bg-experience{
     background-image: linear-gradient(to right,rgb(99, 192, 119) ,rgb(59, 237, 243));
-} */
+}
 .bg-contact{
     background-image: linear-gradient(to right,rgb(230, 66, 66) ,rgb(241, 131, 227));
 }

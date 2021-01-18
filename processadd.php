@@ -4,7 +4,7 @@ if (isset($_SESSION['username'])) {
     if (isset($_GET['table'])) {
         $username = $_SESSION['username'];
         $table = $_GET['table'];
-        include('connect.php');
+        include('model/connect.php');
         if ($table == 'proskills' || $table == 'perskills') {
             $skillname = $_POST['skillname'];
             $percent = $_POST['percent'];
@@ -18,7 +18,7 @@ if (isset($_SESSION['username'])) {
             $mess = $_POST['mess'];
             $sql = "insert into $table (username,$name,time,mess) values ('$username','$data','$time','$mess')";
             mysqli_query($conn, $sql);
-            header("location:admin.php");
+            header("location:profile.php");
         }
     }
 } else {

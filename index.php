@@ -2,12 +2,12 @@
 if (isset($_GET['username'])) {
     $username = $_GET['username'];
     $username = strtolower($username);
-    require "connect.php";
-    require "home.php";
-    require "about.php";
-    require "skills.php";
-    require "education.php";
-    require "experience.php";
+    require "model/connect.php";
+    require "model/home.php";
+    require "model/about.php";
+    require "model/skills.php";
+    require "model/education.php";
+    require "model/experience.php";
 } else {
     header("location:login.php");
 }
@@ -17,7 +17,7 @@ if (isset($_GET['username'])) {
 <html lang="en">
 
 <head>
-    <title>Title</title>
+    <title>CV Online</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -43,7 +43,12 @@ if (isset($_GET['username'])) {
     session_start();
     if(isset($_SESSION['username']))
     {
-        $nav='<a class="nav-link" href="admin.php">Admin</a>';
+        if($_SESSION['level']==1)
+        {
+            $nav='<a class="nav-link" href="admin.php">Admin</a>';
+        }
+        else
+        $nav='<a class="nav-link" href="profile.php">Profile</a>';
     }
     else
     {
@@ -118,7 +123,7 @@ if (isset($_GET['username'])) {
     </header>
     <section class="section" id="about">
         <div class="container">
-            <div class="h3 text-center mb-4 title">About</div>
+            <div class="h3 text-center mb-4 title text-success">About</div>
             <div class="bg-about card shadow-lg">
                 <div class="row">
                     <div class="col-lg-6 col-md-12 mt-5 mb-5">
@@ -168,10 +173,10 @@ if (isset($_GET['username'])) {
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="h3 text-center mb-4 title">Skills</div>
+                    <div class="h3 text-center mb-4 title text-success">Skills</div>
                 </div>
             </div>
-            <div class="card shadow-lg" data-aos="fade-up" data-aos-offset="10">
+            <div class="card shadow-lg">
                 <div class="row">
                     <div class="col-md-6 border-right">
                         <div class="h5 text-center mt-3">Professional Skills</div>
@@ -225,7 +230,7 @@ if (isset($_GET['username'])) {
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="h3 text-center mb-4 title">Education</div>
+                    <div class="h3 text-center mb-4 title text-success">Education</div>
                 </div>
             </div>
             <div class="bg-education card shadow-lg">
@@ -251,7 +256,7 @@ if (isset($_GET['username'])) {
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="h3 text-center mb-4 title">Experience</div>
+                    <div class="h3 text-center mb-4 title text-success">Experience</div>
                 </div>
             </div>
             <div class="bg-experience card shadow-lg">
@@ -303,6 +308,7 @@ if (isset($_GET['username'])) {
                                                 </div>
                                                 <input type="email" class="form-control" name="email" placeholder="yourname@email.com" required>
                                                 <input type="hidden"  name="cvmail" value="<?php echo $email; ?>">
+                                                <input type="hidden"  name="username" value="<?php echo $username; ?>">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -333,7 +339,8 @@ if (isset($_GET['username'])) {
             <a class="btn mxh-is" href="<?php echo $is; ?>"><i class="fab fa-instagram fa-2x " aria-hidden="true"></i></a>
             <div>
                 <h4 class="mt-5 mb-3"><?php echo $name; ?></h4>
-                <p>CV online</p>
+                <p>Creative CV</p>
+                <p>Phone: <?php echo $phone; ?> | Email: <?php echo $email; ?></p>
             </div>
         </div>
     </footer>

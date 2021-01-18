@@ -6,7 +6,7 @@ if(isset($_SESSION['username']))
     {
         $username=$_SESSION['username'];
         $table=$_GET['table'];
-        include('connect.php');
+        include('model/connect.php');
         if($table=='home')
         {
             $name=$_POST['name'];
@@ -17,7 +17,7 @@ if(isset($_SESSION['username']))
             $insta=$_POST['insta'];
             $sql="update home set name='$name',job='$job',fb='$fb',tw='$tw',gg='$gg',insta='$insta' where username='$username'";
             mysqli_query($conn,$sql);
-            header("location:admin.php");
+            header("location:profile.php");
         }
         else if($table=='about')
         {
@@ -31,7 +31,7 @@ if(isset($_SESSION['username']))
             $language=$_POST['language'];
             $sql="update about set intro='$intro',age=$age,sex='$sex',email='$email',phone='$phone',address='$address',hobby='$hobby',language='$language' where username='$username'";
             mysqli_query($conn,$sql);
-            header("location:admin.php");
+            header("location:profile.php");
         }
         else if($table=='proskills' ||$table=='perskills')
         {
@@ -40,7 +40,7 @@ if(isset($_SESSION['username']))
             $percent=$_POST['percent'];
             $sql="update $table set skillname='$skillname',percent='$percent' where username='$username' and id=$id";
             mysqli_query($conn,$sql);
-            header("location:admin.php");
+            header("location:profile.php");
         }
         else if($table=='education' ||$table=='experience')
         {
@@ -51,7 +51,7 @@ if(isset($_SESSION['username']))
             $mess=$_POST['mess'];
             $sql="update $table set $name='$data',time='$time',mess='$mess' where username='$username' and id=$id";
             mysqli_query($conn,$sql);
-            header("location:admin.php");
+            header("location:profile.php");
         }
     }
 }

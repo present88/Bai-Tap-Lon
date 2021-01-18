@@ -7,14 +7,14 @@ if(isset($_SESSION['username']))
         $username=$_SESSION['username'];
         $table=$_GET['table'];
         $id=$_GET['id'];
-        include('connect.php');
+        include('model/connect.php');
         $sql="delete from $table where id=$id and username='$username'";
         mysqli_query($conn,$sql);
-        header("location:admin.php");
+        header("location:profile.php");
     }
     else
     {
-        header("location:admin.php");
+        header("location:profile.php");
     }
 }
 else
